@@ -21,4 +21,4 @@ cargo r -r
 
 ## Test with Postman
 
-You can use my exported [postman collection](https://raw/githubusercontent.com/bungambohlah/actix_web_book_service/postman/Rust%20Web%20API%20Book.postman_collection.json) Web API Book.postman_collection.json) to test if the web service is properly run or not
+You can use my exported [postman collection](https://raw.githubusercontent.com/bungambohlah/actix_web_book_service/master/postman/Rust%20Web%20API%20Book.postman_collection.json) Web API Book.postman_collection.json) to test if the web service is properly run or not
