@@ -5,7 +5,7 @@ use nanoid::nanoid;
 
 #[get("/books")]
 async fn get_books(data: web::Data<AppState>) -> impl Responder {
-    HttpResponse::Ok().json(data.book_entries.lock().unwrap().to_vec())
+    HttpResponse::Ok().json(data.book_entries.lock().await.to_vec())
 }
 
 #[post("/books")]
@@ -13,7 +13,7 @@ async fn create_book(
     data: web::Data<AppState>,
     param_obj: web::Json<CreatedBookData>,
 ) -> impl Responder {
-    let mut book_entries = data.book_entries.lock().unwrap();
+    let mut book_entries = data.book_entries.lock().await;
 
     let id = nanoid!(10);
 
@@ -33,7 +33,7 @@ async fn update_book(
     param_obj: web::Json<UpdateBookData>,
 ) -> impl Responder {
     let id = path.into_inner();
-    let mut book_entries = data.book_entries.lock().unwrap();
+    let mut book_entries = data.book_entries.lock().await;
     for i in 0..book_entries.len() {
         if book_entries[i].id == id {
             book_entries[i].name = param_obj.name.clone();
@@ -47,7 +47,7 @@ async fn update_book(
 #[delete("/books/{id}")]
 async fn delete_book(data: web::Data<AppState>, path: web::Path<String>) -> impl Responder {
     let id = path.into_inner();
-    let mut book_entries = data.book_entries.lock().unwrap();
+    let mut book_entries = data.book_entries.lock().await;
     *book_entries = book_entries
         .to_vec()
         .into_iter()
