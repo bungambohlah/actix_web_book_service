@@ -1,4 +1,4 @@
-use actix_web::{get, web, App, HttpServer};
+use actix_web::{get, middleware, web, App, HttpServer};
 use serde::{Deserialize, Serialize};
 use std::sync::Mutex;
 
@@ -28,6 +28,7 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(move || {
         App::new()
+            .wrap(middleware::Compress::default())
             .app_data(app_data.clone())
             .service(index)
             .configure(services::config)
