@@ -23,7 +23,7 @@ async fn create_book(
         publisher: param_obj.publisher.clone(),
     });
 
-    HttpResponse::Ok().json(book_entries.to_vec())
+    HttpResponse::NoContent()
 }
 
 #[put("/books/{id}")]
